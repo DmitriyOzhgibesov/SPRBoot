@@ -24,25 +24,15 @@ class DemoApplicationTests {
 
     @Test
     void contextLoadsDev() {
-        Integer mappedPortDev = myDevApp.getMappedPort(8080);
-
-        ResponseEntity<String> forEntityDev = restTemplate.getForEntity("http://localhost:" + myDevApp.getMappedPort(8080), String.class);
-
+        ResponseEntity<String> forEntityDev = restTemplate.getForEntity("http://localhost:" + myDevApp.getMappedPort(8080)  + "/profile", String.class);
         System.out.println(forEntityDev.getBody());
-        System.out.println(mappedPortDev);
-
-        Assertions.assertEquals(mappedPortDev, 8080);
+        Assertions.assertEquals(forEntityDev.getBody(), "Current profile is dev");
     }
 
     @Test
     void contextLoadsProd() {
-        Integer mappedPortProd = myProdApp.getMappedPort(8081);
-
-        ResponseEntity<String> forEntityProd = restTemplate.getForEntity("http://localhost:" + myProdApp.getMappedPort(8081), String.class);
-
+        ResponseEntity<String> forEntityProd = restTemplate.getForEntity("http://localhost:" + myProdApp.getMappedPort(8081) + "/profile", String.class);
         System.out.println(forEntityProd.getBody());
-        System.out.println(mappedPortProd);
-
-        Assertions.assertEquals(mappedPortProd, 8081);
+        Assertions.assertEquals(forEntityProd.getBody(), "Current profile is production");
     }
 }
